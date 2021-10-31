@@ -6,5 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playing with CSS Variables and JS</title>
   </head>
-  <body></body>
+  <body>
+    <h2>Playing with CSS Variables and <span class="h2">JS</span></h2>
+    <div class="controls">
+      <label for="height">height</label>
+      <input
+        type="range"
+        name="spacing"
+        min="300"
+        max="900"
+        value="10"
+        data-sizing="px"
+      />
+
+      <label for="blur">Blur</label>
+      <input
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="10"
+        data-sizing="px"
+      />
+
+      <label for="base"></label>
+      <input type="color" name="base" value="#ffc600" />
+    </div>
+
+    <img
+      src="https://mimigram.ru/wp-content/uploads/2020/07/Что-такое-фото.jpeg"
+      alt=""
+    />
+
+    <style>
+      :root {
+        --base: #ffc62f0;
+        --spacing: 300px;
+        --blur: 10px;
+      }
+
+      body {
+        text-align: center;
+        background-color: rgb(2, 57, 175);
+        color: aquamarine;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
+
+      .controls {
+        margin-bottom: 50px;
+      }
+
+      img {
+        height: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+
+      .h2 {
+        color: var(--base);
+      }
+    </style>
+
+    <script>
+      const input = document.querySelectorAll('.controls input');
+      console.log(input);
+
+      function handleUpdate() {
+        const suffix = this.dataset.sizing || '';
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          this.value + suffix,
+        );
+      }
+
+      input.forEach(input => input.addEventListener('change', handleUpdate));
+      input.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    </script>
+  </body>
 </html>
